@@ -3,7 +3,6 @@ from django.contrib.auth.models import User
 
 class Photo(models.Model):
     title = models.CharField(max_length=255)
-    likes = models.IntegerField(default=0)
     description = models.TextField(blank=True)
     image = models.ImageField(upload_to='photos/')
     user = models.ForeignKey(User, on_delete=models.CASCADE)
@@ -12,15 +11,6 @@ class Photo(models.Model):
     
     def __str__(self):
         return self.title
-    
-    def add_like(self):
-        self.likes += 1
-        self.save()
-
-    def remove_like(self):
-        if self.likes > 0:
-            self.likes -= 1
-        self.save()
 
 class Comment(models.Model):
     user = models.ForeignKey(User, on_delete=models.CASCADE)
@@ -49,3 +39,15 @@ class AstronomicalEvent(models.Model):
     
     def __str__(self):
         return self.name
+
+class PhotoOfTheDay(models.Model):
+    photo = models.OneToOneField(Photo, on_delete=models.CASCADE)
+    date = models.DateField()
+
+class PhotoOfTheMonth(models.Model):
+    photo = models.OneToOneField(Photo, on_delete=models.CASCADE)
+    month = models.DateField()
+
+class PhotoOfTheYear(models.Model):
+    photo = models.OneToOneField(Photo, on_delete=models.CASCADE)
+    year = models.DateField()

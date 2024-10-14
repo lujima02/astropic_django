@@ -1,5 +1,5 @@
 from django.contrib import admin
-from .models import Photo, Comment, Like, AstronomicalEvent
+from .models import Photo, Comment, Like, AstronomicalEvent, PhotoOfTheDay, PhotoOfTheMonth, PhotoOfTheYear
 
 # Configuración para el modelo Photo
 @admin.register(Photo)
@@ -35,3 +35,24 @@ class AstronomicalEventAdmin(admin.ModelAdmin):
     list_display = ('name', 'event_date')
     list_filter = ('event_date',)
     search_fields = ('name', 'description')
+
+# Configuración para el modelo PhotoOfTheDay
+@admin.register(PhotoOfTheDay)
+class PhotoOfTheDayAdmin(admin.ModelAdmin):
+    list_display = ('photo', 'date')
+    list_filter = ('date',)
+    search_fields = ('photo__title',)
+
+# Configuración para el modelo PhotoOfTheMonth
+@admin.register(PhotoOfTheMonth)
+class PhotoOfTheMonthAdmin(admin.ModelAdmin):
+    list_display = ('photo', 'month')
+    list_filter = ('month',)
+    search_fields = ('photo__title',)
+
+# Configuración para el modelo PhotoOfTheYear
+@admin.register(PhotoOfTheYear)
+class PhotoOfTheYearAdmin(admin.ModelAdmin):
+    list_display = ('photo', 'year')
+    list_filter = ('year',)
+    search_fields = ('photo__title',)
