@@ -9,7 +9,13 @@
             <h2>{{ photo.title }}</h2>
             <p>{{ photo.description }}</p>
             <p>Subida por: {{ photo.user.username }}</p>
-            <p>Evento: {{ photo.event.name if photo.event else "Sin evento" }}</p>
+            <p>Evento: 
+                {% if photo.event %}
+                    {{ photo.event.name }}
+                {% else %}
+                    Sin evento
+                {% endif %}
+            </p>            
             <p>Likes: <span id="like-count">{{ like_count }}</span></p>
             
             <!-- Botón de Like -->
