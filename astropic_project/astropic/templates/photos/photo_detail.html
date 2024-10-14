@@ -1,0 +1,50 @@
+{% extends 'base.html' %}
+
+{% block title %}{{ photo.title }}{% endblock %}
+
+{% block content %}
+    <div class="row">
+        <div class="col-md-8">
+            <img src="{{ photo.image.url }}" class="img-fluid" alt="{{ photo.title }}">
+            <h2>{{ photo.title }}</h2>
+            <p>{{ photo.description }}</p>
+            <p>Subida por: {{ photo.user.username }}</p>
+            <p>Evento: {{ photo.event.name if photo.event else "Sin evento" }}</p>
+            <p>Likes: <span id="like-count">{{ like_count }}</span></p>
+            
+            <!-- Botón de Like -->
+            <form id="like-form" action="{% url 'like-photo' photo.pk %}" method="post">
+                {% csrf_token %}
+                <button type="submit" class="btn btn-outline-primary">Me gusta</button>
+            </form>
+
+            <h3>Comentarios</h3>
+            <ul>
+                {% for comment in comments %}
+                    <li><strong>{{ comment.user.username }}:</strong> {{ comment.comment }}</li>
+                {% empty %}
+                    <li>No hay comentarios.</li>
+                {% endfor %}
+            </ul>
+
+            <!-- Formulario para agregar comentario -->
+            <form action="{% url 'add-comment' photo.pk %}" method="post">
+                {% csrf_token %}
+                <div class="form-group">
+                    <textarea name="comment" class="form-control" rows="3" placeholder="Escribe un comentario"></textarea>
+                </div>
+                <button type="submit" class="btn btn-primary">Agregar comentario</button>
+            </form>
+        </div>
+    </div>
+
+    <script>
+        $("#like-form").submit(function (event) {
+            event.preventDefault();
+            $.post($(this).attr("action"), $(this).serialize(), function (data) {
+                $("#like-count").text(data.like_count);
+            });
+        });
+    </script>
+{% endblock %}
+

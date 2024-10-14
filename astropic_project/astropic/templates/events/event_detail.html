@@ -1,0 +1,27 @@
+{% extends 'base.html' %}
+
+{% block title %}{{ event.name }}{% endblock %}
+
+{% block content %}
+    <h1>{{ event.name }}</h1>
+    <p>{{ event.description }}</p>
+    <p>Fecha del evento: {{ event.event_date }}</p>
+
+    <h2>Fotos relacionadas</h2>
+    <div class="row">
+        {% for photo in photos %}
+            <div class="col-md-4 mb-4">
+                <div class="card">
+                    <img src="{{ photo.image.url }}" class="card-img-top" alt="{{ photo.title }}">
+                    <div class="card-body">
+                        <h5 class="card-title">{{ photo.title }}</h5>
+                        <a href="{% url 'photo-detail' photo.pk %}" class="btn btn-primary">Ver más</a>
+                    </div>
+                </div>
+            </div>
+        {% empty %}
+            <p>No hay fotos relacionadas con este evento.</p>
+        {% endfor %}
+    </div>
+{% endblock %}
+

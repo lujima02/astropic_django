@@ -1,0 +1,38 @@
+{% extends 'base.html' %}
+
+{% block title %}Eventos Astronómicos{% endblock %}
+
+{% block content %}
+    <h1>Eventos Astronómicos</h1>
+    <ul>
+        {% for event in events %}
+            <li>
+                <a href="{% url 'event-detail' event.pk %}">{{ event.name }}</a> - {{ event.event_date }}
+            </li>
+        {% empty %}
+            <p>No hay eventos disponibles.</p>
+        {% endfor %}
+    </ul>
+
+    <!-- Paginación -->
+    <div class="pagination">
+        {% if is_paginated %}
+            <span class="step-links">
+                {% if page_obj.has_previous %}
+                    <a href="?page=1">&laquo; primero</a>
+                    <a href="?page={{ page_obj.previous_page_number }}">anterior</a>
+                {% endif %}
+
+                <span class="current">
+                    Página {{ page_obj.number }} de {{ page_obj.paginator.num_pages }}.
+                </span>
+
+                {% if page_obj.has_next %}
+                    <a href="?page={{ page_obj.next_page_number }}">siguiente</a>
+                    <a href="?page={{ page_obj.paginator.num_pages }}">último &raquo;</a>
+                {% endif %}
+            </span>
+        {% endif %}
+    </div>
+{% endblock %}
+

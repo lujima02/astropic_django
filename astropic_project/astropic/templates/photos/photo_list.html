@@ -1,0 +1,45 @@
+{% extends 'base.html' %}
+
+{% block title %}Lista de Fotos{% endblock %}
+
+{% block content %}
+    <h1>Fotos de Astronomía</h1>
+    <div class="row">
+        {% for photo in photos %}
+            <div class="col-md-4 mb-4">
+                <div class="card">
+                    <img src="{{ photo.image.url }}" class="card-img-top" alt="{{ photo.title }}">
+                    <div class="card-body">
+                        <h5 class="card-title">{{ photo.title }}</h5>
+                        <p class="card-text">{{ photo.description|truncatewords:20 }}</p>
+                        <a href="{% url 'photo-detail' photo.pk %}" class="btn btn-primary">Ver más</a>
+                    </div>
+                </div>
+            </div>
+        {% empty %}
+            <p>No hay fotos disponibles.</p>
+        {% endfor %}
+    </div>
+
+    <!-- Paginación -->
+    <div class="pagination">
+        {% if is_paginated %}
+            <span class="step-links">
+                {% if page_obj.has_previous %}
+                    <a href="?page=1">&laquo; primero</a>
+                    <a href="?page={{ page_obj.previous_page_number }}">anterior</a>
+                {% endif %}
+
+                <span class="current">
+                    Página {{ page_obj.number }} de {{ page_obj.paginator.num_pages }}.
+                </span>
+
+                {% if page_obj.has_next %}
+                    <a href="?page={{ page_obj.next_page_number }}">siguiente</a>
+                    <a href="?page={{ page_obj.paginator.num_pages }}">último &raquo;</a>
+                {% endif %}
+            </span>
+        {% endif %}
+    </div>
+{% endblock %}
+
