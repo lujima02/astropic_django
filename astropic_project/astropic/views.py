@@ -3,7 +3,6 @@ from django.views import View
 from django.views.generic import ListView, DetailView
 from django.contrib.auth.mixins import LoginRequiredMixin
 from .models import Photo, Comment, Like, AstronomicalEvent
-from django.http import JsonResponse
 
 # Lista de fotos
 class PhotoListView(ListView):
@@ -42,7 +41,7 @@ class LikePhotoView(LoginRequiredMixin, View):
             # Si ya existe el like, lo eliminamos (dislike)
             like.delete()
         like_count = Like.objects.filter(photo=photo).count()
-        return JsonResponse({'like_count': like_count})
+        return redirect('photo-detail', pk=pk)
 
 # Lista de eventos astronómicos
 class AstronomicalEventListView(ListView):
