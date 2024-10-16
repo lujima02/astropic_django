@@ -26,7 +26,7 @@ SECRET_KEY = 'django-insecure-hh7gac9#a3wm9dc!v*v+z)q!bj(mv!d-tcab(&l*eaoqqb9=0e
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['*']
 
 
 # Application definition
@@ -118,7 +118,7 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/5.1/howto/static-files/
 
 STATIC_URL = 'static/'
-STATICFILE_DIR = [os.path.join(BASE_DIR, 'astropic/static')]
+STATICFILE_DIR = os.path.join(BASE_DIR, 'astropic/static')
 
 # Default primary key field type
 # https://docs.djangoproject.com/en/5.1/ref/settings/#default-auto-field
