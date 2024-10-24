@@ -19,10 +19,12 @@
             <p>Likes: <span id="like-count">{{ like_count }}</span></p>
             
             <!-- Botón de Like -->
+            {% if user.is_authenticated %}
             <form id="like-form" action="{% url 'like-photo' photo.pk %}" method="post">
                 {% csrf_token %}
                 <button type="submit" class="btn btn-outline-primary">Me gusta</button>
             </form>
+            {% endif %}
 
             <h3>Comentarios</h3>
             <ul>
@@ -34,6 +36,7 @@
             </ul>
 
             <!-- Formulario para agregar comentario -->
+            {% if user.is_authenticated %}
             <form action="{% url 'add-comment' photo.pk %}" method="post">
                 {% csrf_token %}
                 <div class="form-group">
@@ -41,6 +44,16 @@
                 </div>
                 <button type="submit" class="btn btn-primary">Agregar comentario</button>
             </form>
+            {% else %}
+                <p>Inicia sesión para comentar.</p>
+            {% endif %}
+            {% if user == photo.user %}
+                <a href="{% url 'photo-edit' photo.pk %}" class="btn btn-warning mt-2">Editar</a>
+                <form action="{% url 'photo-delete' photo.pk %}" method="post" class="d-inline-block">
+                    {% csrf_token %}
+                    <button type="submit" class="btn btn-danger mt-2">Eliminar</button>
+                </form>
+            {% endif %}
         </div>
     </div>
 
@@ -53,4 +66,3 @@
         });
     </script>
 {% endblock %}
-

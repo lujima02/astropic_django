@@ -1,0 +1,14 @@
+{% extends 'base.html' %}
+{% block title %}Eliminar Foto{% endblock %}
+
+{% block content %}
+<div class="container">
+    <h2>Eliminar Foto</h2>
+    <p>¿Estás seguro de que deseas eliminar esta foto?</p>
+    <form method="post">
+        {% csrf_token %}
+        <button type="submit" class="btn btn-danger">Eliminar</button>
+    </form>
+    <a href="{% url 'photo-list' %}" class="btn btn-secondary mt-2">Cancelar</a>
+</div>
+{% endblock %}

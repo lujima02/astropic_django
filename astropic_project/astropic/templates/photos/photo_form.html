@@ -1,0 +1,14 @@
+{% extends 'base.html' %}
+{% block title %}Subir/Editar Foto{% endblock %}
+
+{% block content %}
+<div class="container">
+    <h2>{% if form.instance.pk %}Editar Foto{% else %}Subir Foto{% endif %}</h2>
+    <form method="post" enctype="multipart/form-data">
+        {% csrf_token %}
+        {{ form.as_p }}
+        <button type="submit" class="btn btn-primary">Guardar</button>
+    </form>
+    <a href="{% url 'photo-list' %}" class="btn btn-secondary mt-2">Cancelar</a>
+</div>
+{% endblock %}
