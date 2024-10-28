@@ -76,6 +76,12 @@ class PhotoDeleteView(LoginRequiredMixin, DeleteView):
     def get_queryset(self):
         # Solo permite eliminar fotos del usuario actual
         return Photo.objects.filter(user=self.request.user)
+    
+    def get_object(self, queryset = ...):
+        photo = super().get_object(queryset)
+        photo.visits += 1
+        photo.save()
+        return photo
 
 # Lista de eventos astronómicos
 class AstronomicalEventListView(ListView):

@@ -8,6 +8,7 @@ class Photo(models.Model):
     user = models.ForeignKey(User, on_delete=models.CASCADE)
     event = models.ForeignKey('AstronomicalEvent', null=True, blank=True, on_delete=models.SET_NULL)
     created_at = models.DateTimeField(auto_now_add=True)
+    visits = models.IntegerField(default=0)
     
     def __str__(self):
         return self.title
