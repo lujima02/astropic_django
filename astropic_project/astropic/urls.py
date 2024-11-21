@@ -1,7 +1,7 @@
 from django.urls import path
 from django.contrib.auth import views as auth_views
 from .views import (
-    PhotoListView, PhotoDetailView, AddCommentView, LikePhotoView, AstronomicalEventListView, AstronomicalEventDetailView, PhotoCreateView, PhotoUpdateView, PhotoDeleteView, SignupView
+    PhotoListView, PhotoDetailView, AddCommentView, LikePhotoView, AstronomicalEventListView, AstronomicalEventDetailView, PhotoCreateView, PhotoUpdateView, PhotoDeleteView, SignupView, PhotoListAPIView,
 )
 
 urlpatterns = [
@@ -17,4 +17,5 @@ urlpatterns = [
     path('login/', auth_views.LoginView.as_view(), name='login'),
     path('logout/', auth_views.LogoutView.as_view(next_page='photo-list'), name='logout'),
     path('signup/', SignupView.as_view(), name='signup'),
+    path('api/photos/', PhotoListAPIView.as_view(), name='api_photo_list'),
 ]

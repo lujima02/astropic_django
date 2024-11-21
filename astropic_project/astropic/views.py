@@ -7,6 +7,8 @@ from django.contrib.auth.forms import UserCreationForm
 from django.urls import reverse_lazy
 from .models import Photo, Comment, Like, AstronomicalEvent
 from .forms import PhotoForm
+from rest_framework import generics
+from .serializers import PhotoSerializer
 
 # Lista de fotos
 class PhotoListView(ListView):
@@ -26,6 +28,12 @@ class PhotoDetailView(DetailView):
         context['comments'] = Comment.objects.filter(photo=self.object)
         context['like_count'] = Like.objects.filter(photo=self.object).count()
         return context
+    
+    def get_object(self, queryset = None):
+        photo = super().get_object(queryset)
+        photo.visits += 1
+        photo.save()
+        return photo
 
 # Crear un comentario
 class AddCommentView(LoginRequiredMixin, View):
@@ -77,11 +85,6 @@ class PhotoDeleteView(LoginRequiredMixin, DeleteView):
         # Solo permite eliminar fotos del usuario actual
         return Photo.objects.filter(user=self.request.user)
     
-    def get_object(self, queryset = None):
-        photo = super().get_object(queryset)
-        photo.visits += 1
-        photo.save()
-        return photo
 
 # Lista de eventos astronómicos
 class AstronomicalEventListView(ListView):
@@ -114,3 +117,8 @@ class SignupView(View):
             login(request, user)
             return redirect('photo-list')
         return render(request, 'registration/signup.html', {'form': form})
+    
+#Api http://127.0.0.1:8000/api/photos/
+class PhotoListAPIView(generics.ListAPIView):
+    queryset = Photo.objects.all()
+    serializer_class = PhotoSerializer
