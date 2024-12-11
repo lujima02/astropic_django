@@ -26,8 +26,11 @@ SECRET_KEY = 'django-insecure-hh7gac9#a3wm9dc!v*v+z)q!bj(mv!d-tcab(&l*eaoqqb9=0e
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ['*']
+ALLOWED_HOSTS = ['localhost','astropic.duckdns.org','127.0.0.1']
 
+CSRF_TRUSTED_ORIGINS = [
+    'https://astropic.duckdns.org/',
+]
 
 # Application definition
 
@@ -118,7 +121,7 @@ USE_TZ = True
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/5.1/howto/static-files/
 
-STATIC_URL = 'static/'
+STATIC_URL = '/static/'
 STATICFILE_DIR = os.path.join(BASE_DIR, 'astropic/static')
 
 # Default primary key field type
