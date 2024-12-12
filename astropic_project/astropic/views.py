@@ -1,6 +1,6 @@
 from django.shortcuts import render, get_object_or_404, redirect
 from django.views import View
-from django.views.generic import ListView, DetailView, CreateView, UpdateView, DeleteView
+from django.views.generic import TemplateView, ListView, DetailView, CreateView, UpdateView, DeleteView
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.contrib.auth import login
 from django.contrib.auth.forms import UserCreationForm
@@ -9,6 +9,10 @@ from .models import Photo, Comment, Like, AstronomicalEvent
 from .forms import PhotoForm
 from rest_framework import generics
 from .serializers import PhotoSerializer
+
+# Página de bienvenida
+class WelcomeView(TemplateView):
+    template_name = 'welcome.html'
 
 # Lista de fotos
 class PhotoListView(ListView):

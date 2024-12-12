@@ -1,11 +1,12 @@
 from django.urls import path
 from django.contrib.auth import views as auth_views
 from .views import (
-    PhotoListView, PhotoDetailView, AddCommentView, LikePhotoView, AstronomicalEventListView, AstronomicalEventDetailView, PhotoCreateView, PhotoUpdateView, PhotoDeleteView, SearchView, SignupView, PhotoListAPIView,
+    WelcomeView, PhotoListView, PhotoDetailView, AddCommentView, LikePhotoView, AstronomicalEventListView, AstronomicalEventDetailView, PhotoCreateView, PhotoUpdateView, PhotoDeleteView, SearchView, SignupView, PhotoListAPIView,
 )
 
 urlpatterns = [
-    path('', PhotoListView.as_view(), name='photo-list'),
+    path('', WelcomeView.as_view(), name='welcome'),
+    path('photos/', PhotoListView.as_view(), name='photo-list'),
     path('photo/<int:pk>/', PhotoDetailView.as_view(), name='photo-detail'),
     path('photo/<int:pk>/comment/', AddCommentView.as_view(), name='add-comment'),
     path('photo/<int:pk>/like/', LikePhotoView.as_view(), name='like-photo'),
