@@ -26,7 +26,7 @@ SECRET_KEY = 'django-insecure-hh7gac9#a3wm9dc!v*v+z)q!bj(mv!d-tcab(&l*eaoqqb9=0e
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ['localhost','astropic.duckdns.org','127.0.0.1']
+ALLOWED_HOSTS = ['*']
 
 SESSION_COOKIE_SECURE = True
 CSRF_COOKIE_SECURE = True
