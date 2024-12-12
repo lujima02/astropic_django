@@ -50,7 +50,7 @@ class LikePhotoView(LoginRequiredMixin, View):
         photo = get_object_or_404(Photo, pk=pk)
         like, created = Like.objects.get_or_create(user=request.user, photo=photo)
         if not created:
-            like.delete()  # Si ya existe el like, lo eliminamos (dislike)
+            like.delete()  # Si ya existe el like, lo eliminamos
         return redirect('photo-detail', pk=pk)
 
 # Crear una nueva foto
@@ -103,6 +103,18 @@ class AstronomicalEventDetailView(DetailView):
         context = super().get_context_data(**kwargs)
         context['photos'] = Photo.objects.filter(event=self.object)
         return context
+
+# Busqueda
+class SearchView(ListView):
+    model = Photo
+    template_name = 'photos/photo_list.html'
+    context_object_name = 'photos'
+
+    def get_queryset(self):
+        titles = self.request.GET.get('titles', '')
+        if titles:
+            return Photo.objects.filter(title__icontains=titles)
+        return Photo.objects.all()
 
 # Registro de usuarios
 class SignupView(View):

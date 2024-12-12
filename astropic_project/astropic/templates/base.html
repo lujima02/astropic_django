@@ -25,6 +25,12 @@
                 {% endif %}
             </ul>
             <ul class="navbar-nav ml-auto">
+                <li class="nav-item">
+                    <form method="get" action="{% url 'photo-search' %}" style="display:inline;">
+                        <input type="text" name="titles" class="form-control" placeholder="Buscar fotos">
+                        <button type="submit" class="btn btn-link nav-link" style="border:none; background:none;">Buscar</button>
+                    </form>
+                </li>                
                 {% if user.is_authenticated %}
                     <li class="nav-item">
                         <form method="post" action="{% url 'logout' %}" style="display:inline;">
