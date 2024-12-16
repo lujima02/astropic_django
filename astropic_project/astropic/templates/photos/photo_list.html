@@ -10,6 +10,11 @@
                     <div class="card-body">
                         <h5 class="card-title">{{ photo.title }}</h5>
                         <p class="card-text">{{ photo.description|truncatewords:20 }}</p>
+                        <p class="card-text">
+                            <small class="text-muted">
+                                {{ photo.like_count }} {{ photo.like_count|pluralize:"like,likes" }}
+                            </small>
+                        </p>
                         <a href="{% url 'photo-detail' photo.pk %}" class="btn btn-primary">Ver más</a>
                     </div>
                 </div>
