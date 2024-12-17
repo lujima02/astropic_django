@@ -134,7 +134,7 @@ class SignupView(View):
             return redirect('photo-list')
         return render(request, 'registration/signup.html', {'form': form})
     
-#Api http://127.0.0.1:8000/api/photos/
+#Api http://127.0.0.1:8000/api/
 class PhotoListAPIView(generics.ListAPIView):
     queryset = Photo.objects.all()
     serializer_class = PhotoSerializer

@@ -32,6 +32,7 @@ SESSION_COOKIE_SECURE = True
 CSRF_COOKIE_SECURE = True
 CSRF_TRUSTED_ORIGINS = [
     'https://astropic.duckdns.org/',
+    'https://54.234.127.138/',
 ]
 
 # Application definition
